@@ -3,20 +3,22 @@ package data;
 public class Songs {
 
     private String songName;
+    private int songID;
     private double songDuration;
     private  String songPath;
     private Genre genre;
     private Artist artist;
 
+
     public Songs() {
     }
 
-    public Songs(String songName, double duration, String songPath, Genre genre,  Artist artist) {
+    public Songs(int songID,String songName, double duration, String songPath) {
+        this.songID = songID;
         this.songName = songName;
         this.songDuration = duration;
         this.songPath = songPath;
-        this.genre = genre;
-        this.artist = artist;
+
     }
 
     public String getSongName() {

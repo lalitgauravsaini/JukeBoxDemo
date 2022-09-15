@@ -5,6 +5,8 @@ public class PlayList {
     private String playlistName;
     private int playlistID;
 
+    //private Songs song;
+
     public PlayList() {
     }
 

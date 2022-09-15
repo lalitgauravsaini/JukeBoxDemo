@@ -1,4 +1,4 @@
-package data_accessing_object;
+package operation;
 
 public class SongsOperation {
 
