@@ -16,13 +16,13 @@ public class JukeOperation {
 
         List<Songs> allSongsList = new ArrayList<>();
         Connection connection = DB_connection.getConnection();
-        String sql = "Select songId,songName,duration,songPath from songs; ";
+        String sql = "Select * from songs; ";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
        ResultSet resultSet = preparedStatement.executeQuery();
        while(resultSet.next()){
            allSongsList.add(new Songs(resultSet.getInt(1),resultSet.getString(2),
-                   resultSet.getDouble(3),resultSet.getString(4)));
+                   resultSet.getDouble(3),resultSet.getString(4),resultSet.getString(5),resultSet.getString(6)));
        }
 
        return allSongsList;
@@ -32,18 +32,17 @@ public class JukeOperation {
 
         Scanner scanner = new Scanner(System.in);
         Connection connection = DB_connection.getConnection();
-        String sql = "Select artistID,artistName from artist where artistName like ? ;  ";
+        String sql = "Select artistName from songs where artistName like ? ;  ";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1,searchAlphabet + "%" );
         ResultSet resultSet = preparedStatement.executeQuery();
         System.out.println("Please Select the Artist");
         while(resultSet.next()){
-            System.out.println(resultSet.getInt(1));
-            System.out.println(resultSet.getString(2));
+            System.out.println(resultSet.getString(1));
         }
-        int artistId = scanner.nextInt();
+        String artistName = scanner.nextLine();
         ArtistDAO artistDAO = new ArtistDAO();
-        List<Songs> songs = artistDAO.songsOfArtist(artistId);
+        List<Songs> songs = artistDAO.songsOfArtist(artistName);
         return songs;
 
     }
@@ -53,18 +52,17 @@ public class JukeOperation {
         int artistId = 0;
         Scanner scanner = new Scanner(System.in);
         Connection connection = DB_connection.getConnection();
-        String sql = "Select genreId,genreType from genre where genreType like ? ;  ";
+        String sql = "Select genreType from songs where genreType like ? ;  ";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1,searchAlphabet + "%" );
         ResultSet resultSet = preparedStatement.executeQuery();
         System.out.println("Please Select the Genre");
-        while(resultSet.next()){
-            System.out.print(resultSet.getInt(1) + " ");
-            System.out.println(resultSet.getString(2));
+        if(resultSet.next()){
+            System.out.println(resultSet.getString(1));
         }
-        int genreId = scanner.nextInt();
+        String genreType = scanner.nextLine();
         GenreDAO genreDAO = new GenreDAO();
-        List<Songs> songs = genreDAO.songsOfGenre(genreId);
+        List<Songs> songs = genreDAO.songsOfGenre(genreType);
         return songs;
     }
 
@@ -72,7 +70,7 @@ public class JukeOperation {
 
         Connection connection = DB_connection.getConnection();
         List<Songs> songsList = new ArrayList<>();
-        String sql = "Select songId,songName,duration,songPath from songs where songName like ? ;  ";
+        String sql = "Select * from songs where songName like ? ;  ";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1,searchAlphabet + "%" );
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -80,7 +78,7 @@ public class JukeOperation {
 
         while(resultSet.next()){
             songsList.add(new Songs(resultSet.getInt(1),resultSet.getString(2),
-                    resultSet.getDouble(3),resultSet.getString(4)));
+                    resultSet.getDouble(3),resultSet.getString(4),resultSet.getString(5),resultSet.getString(6)));
         }
 
         return songsList;

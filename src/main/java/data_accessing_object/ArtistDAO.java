@@ -12,18 +12,17 @@ import java.util.List;
 
 public class ArtistDAO {
 
-    public List<Songs> songsOfArtist(int artistID) throws SQLException, ClassNotFoundException {
+    public List<Songs> songsOfArtist(String artistName) throws SQLException, ClassNotFoundException {
 
         List<Songs> songsListOfArtist = new ArrayList<>();
-        Songs songs = new Songs();
         Connection connection = DB_connection.getConnection();
-        String sql = "Select songId,songName,duration,songPath from songs where artistID = ?";
+        String sql = "Select * from songs where artistName like ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setInt(1,artistID);
+        preparedStatement.setString(1,artistName + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()){
             songsListOfArtist.add(new Songs(resultSet.getInt(1),resultSet.getString(2),
-                    resultSet.getDouble(3),resultSet.getString(4)));
+                    resultSet.getDouble(3),resultSet.getString(4),resultSet.getString(5),resultSet.getString(6)));
         }
 
         return songsListOfArtist;
