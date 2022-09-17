@@ -20,16 +20,16 @@ public class Implementation {
         Scanner scanner = new Scanner(System.in);
         PlayListDAO playListDAO = new PlayListDAO();
         AudioPlayer audioPlayer = new AudioPlayer();
-        SongsDAO songsDAO = new SongsDAO();
+        //SongsDAO songsDAO = new SongsDAO();
 
         int optionOfMainMenu = 0;
         while (optionOfMainMenu != 3) {
             System.out.println("============================================================================");
-            System.out.println("           WELCOME TO YOUR  MUSIC SYSTEM");
-            System.out.println("           PLEASE SELECT THE OPTION FROM THE MENU");
-            System.out.println("           1 : Search A Song");
-            System.out.println("           2 : Open A Existing PlayList");
-            System.out.println("           3 :  Exit");
+            System.out.println("\t\t\tWELCOME TO YOUR  MUSIC SYSTEM");
+            System.out.println("\t\tPLEASE SELECT THE OPTION FROM THE MENU");
+            System.out.println("\t\t1 : Search A Song");
+            System.out.println("\t\t2 : Open A Existing PlayList");
+            System.out.println("\t\t3 :  Exit");
             System.out.println("============================================================================");
             optionOfMainMenu = scanner.nextInt();
 
@@ -51,7 +51,8 @@ public class Implementation {
 
                             case (1):
                                 List<Songs> allSongs = jukeOperation.displayAllSongs();
-                                System.out.format("%-10s %-30s %-30s %-30s %-30s \n", "id", "SongName", "Duration", "genreType", "artist");
+                                System.out.format("%-10s %-30s %-30s %-30s %-30s \n", "SongID", "SongName", "Duration", "GenreType", "Artist");
+                                System.out.println("-----------------------------------------------------------------------------------------");
                                 for (Songs songs : allSongs) {
                                     System.out.format("%-10s %-30s %-30s %-30s %-30s \n", songs.getSongID(), songs.getSongName(), songs.getDuration(), songs.getGenreType(), songs.getArtistName());
                                 }
@@ -90,7 +91,8 @@ public class Implementation {
                                 scanner.nextLine();
                                 String artistName = scanner.nextLine();
                                 List<Songs> songsListOfArtist = jukeOperation.searchArtistByArtistName(artistName);
-                                System.out.format("%-10s %-30s %-30s %-30s %-30s \n", "id", "SongName", "Duration", "genreType", "artist");
+                                System.out.format("%-10s %-30s %-30s %-30s %-30s \n", "SongID", "SongName", "Duration", "GenreType", "Artist");
+                                System.out.println("--------------------------------------------------------------------------------------------");
                                 for (Songs songs : songsListOfArtist) {
                                     System.out.format("%-10s %-30s %-30s %-30s %-30s \n", songs.getSongID(), songs.getSongName(), songs.getDuration(), songs.getGenreType(), songs.getArtistName());
                                 }
@@ -99,7 +101,8 @@ public class Implementation {
                                 System.out.println("PLEASE ENTER THE GENRE TYPE YOU WANT TO SEARCH");
                                 String genreType = scanner.nextLine();
                                 List<Songs> songsList = jukeOperation.searchGenreByGenreType(genreType);
-                                System.out.format("%-10s %-30s %-30s %-30s %-30s \n", "id", "SongName", "Duration", "genreType", "artist");
+                                System.out.format("%-10s %-30s %-30s %-30s %-30s \n", "SongID", "SongName", "Duration", "GenreType", "Artist");
+                                System.out.println("--------------------------------------------------------------------------------------------");
                                 for (Songs songs : songsList) {
                                     System.out.format("%-10s %-30s %-30s %-30s %-30s \n", songs.getSongID(), songs.getSongName(), songs.getDuration(), songs.getGenreType(), songs.getArtistName());
 //
@@ -115,7 +118,8 @@ public class Implementation {
                                 scanner.nextLine();
                                 String songName = scanner.nextLine();
                                 List<Songs> songsListBasedOnName = jukeOperation.searchSongBySongName(songName);
-                                System.out.format("%-10s %-30s %-30s %-30s %-30s \n", "id", "SongName", "Duration", "genreType", "artist");
+                                System.out.format("%-10s %-30s %-30s %-30s %-30s \n", "SongID", "SongName", "Duration", "GenreType", "Artist");
+                                System.out.println("--------------------------------------------------------------------------------------------");
                                 for (Songs songs : songsListBasedOnName) {
                                     System.out.format("%-10s %-30s %-30s %-30s %-30s \n", songs.getSongID(), songs.getSongName(), songs.getDuration(), songs.getGenreType(), songs.getArtistName());
 //

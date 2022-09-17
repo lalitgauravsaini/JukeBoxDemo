@@ -121,10 +121,12 @@ public class PlayListDAO {
             System.out.println("Please enter the songID you want to add to the playlist");
             int songID = scanner.nextInt();
 
-            String sqlUpdate = "INSERT INTO TABLE(playListID,songId) values(?,?)";
+            String sqlUpdate = "INSERT INTO playlist(playListID,songId) values(?,?);";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1,playListID);
             preparedStatement.setInt(2,songID);
+        System.out.println(" process=================");
+            preparedStatement.executeQuery();
             System.out.println("1 Do you Want To Add Some more songs");
             System.out.println("2 Do you Want To play the songs in playlist");
             System.out.println("3 Go back to main menu");
@@ -154,8 +156,6 @@ public class PlayListDAO {
         Statement statement = connection.createStatement();
         Scanner scanner = new Scanner(System.in);
         List<Songs> playListSongs = new ArrayList<>();
-        statement.execute("SELECT playListID,playListName from playlistdetails;");
-
         ResultSet resultSet = statement.executeQuery("SELECT playListID,playListName from playlistdetails;");
         while(resultSet.next()){
             System.out.println("playListID = " + resultSet.getInt(1));
