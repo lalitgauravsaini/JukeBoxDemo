@@ -16,6 +16,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class AudioPlayer {
     List<Songs> songslist;
     int songIndex;
+
     public void PlaySong(List<Songs> songslist) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 
         Scanner scanner = new Scanner(System.in);
@@ -32,7 +33,7 @@ public class AudioPlayer {
 
         Scanner scanner = new Scanner(System.in);
         try {
-            String path = songPath ;
+            String path = songPath;
             File file = new File(path);
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
             Clip clip = AudioSystem.getClip();
@@ -77,12 +78,12 @@ public class AudioPlayer {
                     case ("Q"):
                         clip.close();
                         break;
-                    case("N"):
+                    case ("N"):
                         songIndex += 1;
                         clip.close();
                         PlaySong(songslist.get(songIndex).getSongPath());
                         break;
-                    case("O"):
+                    case ("O"):
                         songIndex -= 1;
                         clip.close();
                         PlaySong(songslist.get(songIndex).getSongPath());

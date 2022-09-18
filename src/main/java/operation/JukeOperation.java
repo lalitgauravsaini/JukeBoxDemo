@@ -19,13 +19,13 @@ public class JukeOperation {
         String sql = "Select * from songs; ";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
-       ResultSet resultSet = preparedStatement.executeQuery();
-       while(resultSet.next()){
-           allSongsList.add(new Songs(resultSet.getInt(1),resultSet.getString(2),
-                   resultSet.getDouble(3),resultSet.getString(4),resultSet.getString(5),resultSet.getString(6)));
-       }
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            allSongsList.add(new Songs(resultSet.getInt(1), resultSet.getString(2),
+                    resultSet.getDouble(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6)));
+        }
 
-       return allSongsList;
+        return allSongsList;
     }
 
     public List<Songs> searchArtistByArtistName(String searchAlphabet) throws SQLException, ClassNotFoundException {
@@ -34,10 +34,10 @@ public class JukeOperation {
         Connection connection = DB_connection.getConnection();
         String sql = "Select artistName from songs where artistName like ? ;  ";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1,searchAlphabet + "%" );
+        preparedStatement.setString(1, searchAlphabet + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
         System.out.println("Please Select the Artist");
-        while(resultSet.next()){
+        while (resultSet.next()) {
             System.out.println(resultSet.getString(1));
         }
         String artistName = scanner.nextLine();
@@ -54,10 +54,10 @@ public class JukeOperation {
         Connection connection = DB_connection.getConnection();
         String sql = "Select genreType from songs where genreType like ? ;  ";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1,searchAlphabet + "%" );
+        preparedStatement.setString(1, searchAlphabet + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
         System.out.println("Please Select the Genre");
-        if(resultSet.next()){
+        if (resultSet.next()) {
             System.out.println(resultSet.getString(1));
         }
         String genreType = scanner.nextLine();
@@ -72,19 +72,17 @@ public class JukeOperation {
         List<Songs> songsList = new ArrayList<>();
         String sql = "Select * from songs where songName like ? ;  ";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1,searchAlphabet + "%" );
+        preparedStatement.setString(1, searchAlphabet + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
         System.out.println("Please Select the song");
 
-        while(resultSet.next()){
-            songsList.add(new Songs(resultSet.getInt(1),resultSet.getString(2),
-                    resultSet.getDouble(3),resultSet.getString(4),resultSet.getString(5),resultSet.getString(6)));
+        while (resultSet.next()) {
+            songsList.add(new Songs(resultSet.getInt(1), resultSet.getString(2),
+                    resultSet.getDouble(3), resultSet.getString(4), resultSet.getString(5), resultSet.getString(6)));
         }
 
         return songsList;
     }
-
-
 
 
 }
