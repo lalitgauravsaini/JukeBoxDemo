@@ -1,6 +1,7 @@
 package operation;
 
 import data.Songs;
+import main.Implementation;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,7 +43,7 @@ public class AudioPlayer {
             String response = "";
 
             while (!response.equals("Q")) {
-                System.out.println("P = play, T= Pause, S=Stop, L=Loop, R = Reset, Q = Quit,N = NextSong,O = previousSong");
+                System.out.println("P = play, T= Pause, S=Stop, L=Loop, R = Reset, Q = Quit,N = NextSong,O = previousSong,M = MAIN MENU");
                 System.out.print("Enter your choice: ");
 
                 response = scanner.next();
@@ -52,13 +53,10 @@ public class AudioPlayer {
                 switch (response) {
                     case ("P"): {
                         clip.start();
-                        long clip_position = clip.getMicrosecondPosition();
-                        //  System.out.println("Songs in queue: ");
                         break;
                     }
                     case ("T"): {
                         clip.stop();
-                        long clip_position = clip.getMicrosecondPosition();
                         break;
                     }
                     case ("S"): {
@@ -87,6 +85,10 @@ public class AudioPlayer {
                         songIndex -= 1;
                         clip.close();
                         PlaySong(songslist.get(songIndex).getSongPath());
+                        break;
+                    case("M"):
+                        String[] arg = new String[0];
+                        Implementation.main(arg);
                         break;
 
                     default:

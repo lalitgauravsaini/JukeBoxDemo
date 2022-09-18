@@ -9,9 +9,9 @@ import operation.JukeOperation;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
-import java.sql.ResultSet;
+//import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLOutput;
+//import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,32 +21,33 @@ public class Implementation {
         Scanner scanner = new Scanner(System.in);
         PlayListDAO playListDAO = new PlayListDAO();
         AudioPlayer audioPlayer = new AudioPlayer();
-        Implementation implementation = new Implementation();
+        //Implementation implementation = new Implementation();
         SongsDAO songsDAO = new SongsDAO();
 
         int optionOfMainMenu = 0;
-        while (optionOfMainMenu != 3) {
+        while (optionOfMainMenu != 4) {
             System.out.println("============================================================================");
             System.out.println("\t\tWELCOME TO YOUR  MUSIC SYSTEM");
             System.out.println("\t\tPLEASE SELECT THE OPTION FROM THE MENU");
             System.out.println("\t\t1 : Search A Song");
-            System.out.println("\t\t2 : Go To Existing PlayList");
-            System.out.println("\t\t3 : Exit");
+            System.out.println("\t\t2 : Creating A New PlayList");
+            System.out.println("\t\t3 : Go To Existing PlayList");
+            System.out.println("\t\t4 : Exit");
             System.out.println("============================================================================");
             optionOfMainMenu = scanner.nextInt();
+            try {
+                switch (optionOfMainMenu) {
 
-            switch (optionOfMainMenu) {
+                    case (1):
+                        JukeOperation jukeOperation = new JukeOperation();
+                        System.out.println("\t\tSearch song based on following option");
+                        System.out.println("\t\t1 : Display all Songs");
+                        System.out.println("\t\t2 : Artist Name");
+                        System.out.println("\t\t3 : Genre");
+                        System.out.println("\t\t4 : Song Name");
+                        System.out.println("\t\t5 : GO BACK TO PREVIOUS MENU");
+                        System.out.println("============================================================================");
 
-                case (1):
-                    JukeOperation jukeOperation = new JukeOperation();
-                    System.out.println("\t\tSearch song based on following option");
-                    System.out.println("\t\t1 : Display all Songs");
-                    System.out.println("\t\t2 : Artist Name");
-                    System.out.println("\t\t3 : Genre");
-                    System.out.println("\t\t4 : Song Name");
-                    System.out.println("\t\t5 : GO BACK TO PREVIOUS MENU");
-                    System.out.println("============================================================================");
-                    try {
 
                         int option = scanner.nextInt();
                         switch (option) {
@@ -81,14 +82,25 @@ public class Implementation {
                                                     System.out.format("%-10s %-30s %-30s %-30s %-30s \n", songs.getSongID(), songs.getSongName(), songs.getDuration(), songs.getGenreType(), songs.getArtistName());
                                                 }
                                                 System.out.println("-----------------------------------------------------------------------------------------");
-                                                System.out.println("\t\t1: DO YOU WANT TO PLAY THE PLAYLIST");
-                                                System.out.println("\t\t2: GO BACK TO MAIN MENU");
+                                                System.out.println("\t\t1: DO YOU WANT TO PLAY THE ENTIRE PLAYLIST");
+                                                System.out.println("\t\t2: DO YOU WANT TO PLAY A SONG FROM PLAYLIST");
+                                                System.out.println("\t\t3: GO BACK TO MAIN MENU");
                                                 int select = scanner.nextInt();
                                                 switch (select) {
                                                     case (1):
                                                         audioPlayer.PlaySong(playList);
                                                         break;
                                                     case (2):
+                                                        System.out.format("%-10s %-30s %-30s %-30s %-30s \n", "SongID", "SongName", "Duration", "GenreType", "Artist");
+                                                        System.out.println("-----------------------------------------------------------------------------------------");
+                                                        for (Songs songs : playList) {
+                                                            System.out.format("%-10s %-30s %-30s %-30s %-30s \n", songs.getSongID(), songs.getSongName(), songs.getDuration(), songs.getGenreType(), songs.getArtistName());
+                                                        }
+                                                        System.out.println("PLEASE ENTER THE SONGID YOU WANT TO PLAY");
+                                                        int song_id = scanner.nextInt();
+                                                        audioPlayer.PlaySong(songsDAO.getPathOfTheSong(song_id));
+
+                                                    case (3):
                                                         String[] arg = new String[0];
                                                         Implementation.main(arg);
                                                         break;
@@ -117,6 +129,7 @@ public class Implementation {
                                 for (Songs songs : songsListOfArtist) {
                                     System.out.format("%-10s %-30s %-30s %-30s %-30s \n", songs.getSongID(), songs.getSongName(), songs.getDuration(), songs.getGenreType(), songs.getArtistName());
                                 }
+                                jukeOperation.playSongs();
                                 break;
                             case (3):
                                 System.out.println("PLEASE ENTER THE GENRE TYPE YOU WANT TO SEARCH");
@@ -127,6 +140,7 @@ public class Implementation {
                                 for (Songs songs : songsList) {
                                     System.out.format("%-10s %-30s %-30s %-30s %-30s \n", songs.getSongID(), songs.getSongName(), songs.getDuration(), songs.getGenreType(), songs.getArtistName());
                                 }
+                                jukeOperation.playSongs();
                                 break;
                             case (4):
                                 System.out.println("PLEASE ENTER THE SONG NAME YOU WANT TO SEARCH");
@@ -138,6 +152,7 @@ public class Implementation {
                                 for (Songs songs : songsListBasedOnName) {
                                     System.out.format("%-10s %-30s %-30s %-30s %-30s \n", songs.getSongID(), songs.getSongName(), songs.getDuration(), songs.getGenreType(), songs.getArtistName());
                                 }
+                                jukeOperation.playSongs();
                                 break;
                             case (5):
                                 String[] arg = new String[0];
@@ -146,27 +161,30 @@ public class Implementation {
 
                             default:
                                 System.err.println("PLEASE SELECT THE RIGHT OPTION");
-                                option = scanner.nextInt();
-
-
                         }
 
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (UnsupportedAudioFileException e) {
-                        System.out.println("e = " + e);
-                    } catch (LineUnavailableException e) {
-                        System.out.println("e = " + e);
-                    } catch (IOException e) {
-                        System.out.println("e = " + e);
-                    }
-                    break;
-                case (2):
 
+                        break;
+                    case (2):
 
+                        break;
+
+                    case (3):
+                        break;
+
+                }
+            } catch (UnsupportedAudioFileException e) {
+                System.out.println("e = " + e);
+            } catch (SQLException e) {
+                System.out.println("e = " + e);
+            } catch (LineUnavailableException e) {
+                System.out.println("e = " + e);
+            } catch (IOException e) {
+                System.out.println("e = " + e);
+            } catch (ClassNotFoundException e) {
+                System.out.println("e = " + e);
             }
         }
     }
 }
+

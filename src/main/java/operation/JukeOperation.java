@@ -3,8 +3,14 @@ package operation;
 import data.Songs;
 import data_accessing_object.ArtistDAO;
 import data_accessing_object.GenreDAO;
+import data_accessing_object.PlayListDAO;
+import data_accessing_object.SongsDAO;
+import main.Implementation;
 import utility.DB_connection;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +88,71 @@ public class JukeOperation {
         }
 
         return songsList;
+    }
+
+    public void playSongs() throws SQLException, ClassNotFoundException, UnsupportedAudioFileException, LineUnavailableException, IOException {
+        Scanner scanner = new Scanner(System.in);
+        AudioPlayer audioPlayer = new AudioPlayer();
+        SongsDAO songsDAO = new SongsDAO();
+        PlayListDAO playListDAO = new PlayListDAO();
+        System.out.println("PLEASE SELECT THE OPTION \n1: PLAY A SONG \n2: GO TO PLAYLIST\n3: GO BACK TO MAIN MENU");
+        int choice = scanner.nextInt();
+
+        switch (choice) {
+            case (1):
+                System.out.println("PLEASE ENTER THE SONG ID YOU WANT TO PLAY");
+                int songID = scanner.nextInt();
+                audioPlayer.PlaySong(songsDAO.getPathOfTheSong(songID));
+                break;
+            case (2):
+                System.out.println("1 FOR CREATING A NEW PLAYLIST\n2 FOR EXISTING PLAYLIST");
+                int userChoice = scanner.nextInt();
+                switch (userChoice) {
+                    case (1):
+                        playListDAO.creatingAPlaylist();
+                    case (2):
+                        List<Songs> playList = playListDAO.exsitingPlaylist();
+                        System.out.format("%-10s %-30s %-30s %-30s %-30s \n", "SongID", "SongName", "Duration", "GenreType", "Artist");
+                        System.out.println("-----------------------------------------------------------------------------------------");
+                        for (Songs songs : playList) {
+                            System.out.format("%-10s %-30s %-30s %-30s %-30s \n", songs.getSongID(), songs.getSongName(), songs.getDuration(), songs.getGenreType(), songs.getArtistName());
+                        }
+                        System.out.println("-----------------------------------------------------------------------------------------");
+                        System.out.println("\t\t1: DO YOU WANT TO PLAY THE ENTIRE PLAYLIST");
+                        System.out.println("\t\t2: DO YOU WANT TO PLAY A SONG FROM PLAYLIST");
+                        System.out.println("\t\t3: GO BACK TO MAIN MENU");
+                        int select = scanner.nextInt();
+                        switch (select) {
+                            case (1):
+                                audioPlayer.PlaySong(playList);
+                                break;
+                            case (2):
+                                System.out.format("%-10s %-30s %-30s %-30s %-30s \n", "SongID", "SongName", "Duration", "GenreType", "Artist");
+                                System.out.println("-----------------------------------------------------------------------------------------");
+                                for (Songs songs : playList) {
+                                    System.out.format("%-10s %-30s %-30s %-30s %-30s \n", songs.getSongID(), songs.getSongName(), songs.getDuration(), songs.getGenreType(), songs.getArtistName());
+                                }
+                                System.out.println("PLEASE ENTER THE SONGID YOU WANT TO PLAY");
+                                int song_id = scanner.nextInt();
+                                audioPlayer.PlaySong(songsDAO.getPathOfTheSong(song_id));
+
+                            case (3):
+                                String[] arg = new String[0];
+                                Implementation.main(arg);
+                                break;
+                            default:
+                                System.err.println("PLEASE SELECT THE CORRECT OPTION");
+                        }
+
+                }
+                break;
+            case (3):
+                break;
+            default:
+                System.err.println("PLEASE SELECT THE RIGHT OPTION");
+
+
+        }
     }
 
 

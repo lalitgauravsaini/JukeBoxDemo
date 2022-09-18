@@ -57,6 +57,7 @@ public class PlayListDAO {
         Scanner scanner = new Scanner(System.in);
         JukeOperation jukeOperation = new JukeOperation();
         AudioPlayer audioPlayer = new AudioPlayer();
+        SongsDAO songsDAO = new SongsDAO();
         String sql = "SELECT playListID,playListName from playlistdetails;";
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
@@ -151,14 +152,19 @@ public class PlayListDAO {
                         System.out.format("%-10s %-30s %-30s %-30s %-30s \n", songs.getSongID(), songs.getSongName(), songs.getDuration(), songs.getGenreType(), songs.getArtistName());
                     }
                     System.out.println("-----------------------------------------------------------------------------------------");
-                    System.out.println("\t\t1: DO YOU WANT TO PLAY THE PLAYLIST");
-                    System.out.println("\t\t2: GO BACK TO MAIN MENU");
+                    System.out.println("\t\t1: DO YOU WANT TO PLAY THE ENTIRE PLAYLIST");
+                    System.out.println("\t\t2: DO YOU WANT TO PLAY A SONG FROM PLAYLIST");
+                    System.out.println("\t\t3: GO BACK TO MAIN MENU");
                     int select = scanner.nextInt();
                     switch (select) {
                         case (1):
                             audioPlayer.PlaySong(playList);
                             break;
-                        case (2):
+                        case(2):
+                            System.out.println("PLEASE ENTER THE SONG_ID");
+                            int songId = scanner.nextInt();
+                            audioPlayer.PlaySong(songsDAO.getPathOfTheSong(songId));
+                        case (3):
                             String[] arg = new String[0];
                             Implementation.main(arg);
                             break;
@@ -186,7 +192,10 @@ public class PlayListDAO {
         Scanner scanner = new Scanner(System.in);
         List<Songs> playListSongs = new ArrayList<>();
         ResultSet resultSet = statement.executeQuery("SELECT playListID,playListName from playlistdetails;");
+        System.out.format("%-10s %-20s","PlayListID","PlayListName");
         while (resultSet.next()) {
+            System.out.format("%-10s %-20s",resultSet.getInt(1),resultSet.getString(2));
+                System.out.println("playListID = " + resultSet.getInt(1));
             System.out.println("playListID = " + resultSet.getInt(1));
             System.out.println("playListName = " + resultSet.getString(2));
         }
