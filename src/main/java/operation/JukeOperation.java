@@ -55,7 +55,6 @@ public class JukeOperation {
 
     public List<Songs> searchGenreByGenreType(String searchAlphabet) throws SQLException, ClassNotFoundException {
 
-        int artistId = 0;
         Scanner scanner = new Scanner(System.in);
         Connection connection = DB_connection.getConnection();
         String sql = "Select genreType from songs where genreType like ? ;  ";
@@ -63,7 +62,7 @@ public class JukeOperation {
         preparedStatement.setString(1, searchAlphabet + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
         System.out.println("Please Select the Genre");
-        if (resultSet.next()) {
+        while(resultSet.next()) {
             System.out.println(resultSet.getString(1));
         }
         String genreType = scanner.nextLine();

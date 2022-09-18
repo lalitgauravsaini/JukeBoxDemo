@@ -9,9 +9,7 @@ import operation.JukeOperation;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
-//import java.sql.ResultSet;
 import java.sql.SQLException;
-//import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,7 +19,6 @@ public class Implementation {
         Scanner scanner = new Scanner(System.in);
         PlayListDAO playListDAO = new PlayListDAO();
         AudioPlayer audioPlayer = new AudioPlayer();
-        //Implementation implementation = new Implementation();
         SongsDAO songsDAO = new SongsDAO();
 
         int optionOfMainMenu = 0;
@@ -111,6 +108,8 @@ public class Implementation {
                                         }
                                         break;
                                     case (3):
+                                        String[] arg = new String[0];
+                                        Implementation.main(arg);
                                         break;
                                     default:
                                         System.err.println("PLEASE SELECT THE RIGHT OPTION");
@@ -166,10 +165,34 @@ public class Implementation {
 
                         break;
                     case (2):
-
+                        playListDAO.creatingAPlaylist();
                         break;
 
                     case (3):
+                       List<Songs> playListEx = playListDAO.exsitingPlaylist();
+                        System.out.format("%-10s %-30s %-30s %-30s %-30s \n", "SongID", "SongName", "Duration", "GenreType", "Artist");
+                        System.out.println("-----------------------------------------------------------------------------------------");
+                        for (Songs songs : playListEx) {
+                            System.out.format("%-10s %-30s %-30s %-30s %-30s \n", songs.getSongID(), songs.getSongName(), songs.getDuration(), songs.getGenreType(), songs.getArtistName());
+                        }
+                        System.out.println("-----------------------------------------------------------------------------------------");
+                        System.out.println("\t\t1: DO YOU WANT TO PLAY THE ENTIRE PLAYLIST");
+                        System.out.println("\t\t2: DO YOU WANT TO PLAY A SONG FROM PLAYLIST");
+                        System.out.println("\t\t3: GO BACK TO MAIN MENU");
+                        int select = scanner.nextInt();
+                        switch (select) {
+                            case (1):
+                                audioPlayer.PlaySong(playListEx);
+                                break;
+                            case (2):
+                                System.out.format("%-10s %-30s %-30s %-30s %-30s \n", "SongID", "SongName", "Duration", "GenreType", "Artist");
+                                System.out.println("-----------------------------------------------------------------------------------------");
+                                for (Songs songs : playListEx) {
+                                    System.out.format("%-10s %-30s %-30s %-30s %-30s \n", songs.getSongID(), songs.getSongName(), songs.getDuration(), songs.getGenreType(), songs.getArtistName());
+                                }
+                                System.out.println("PLEASE ENTER THE SONGID YOU WANT TO PLAY");
+                                int song_id = scanner.nextInt();
+                                audioPlayer.PlaySong(songsDAO.getPathOfTheSong(song_id));}
                         break;
 
                 }

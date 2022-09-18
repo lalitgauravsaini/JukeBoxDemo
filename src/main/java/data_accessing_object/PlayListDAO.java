@@ -61,9 +61,13 @@ public class PlayListDAO {
         String sql = "SELECT playListID,playListName from playlistdetails;";
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
+        System.out.format("%-10s %-20s", "PlayListID", "PlayListName");
+        System.out.println();
         while (resultSet.next()) {
-            System.out.println("playListID = " + resultSet.getInt(1));
-            System.out.println("playListName = " + resultSet.getString(2));
+            System.out.format("%-10s %-20s", resultSet.getInt(1), resultSet.getString(2));
+            System.out.println();
+            /*System.out.println("playListID = " + resultSet.getInt(1));
+            System.out.println("playListName = " + resultSet.getString(2));*/
         }
 
         System.out.println("Please enter the playListID to add songs");
@@ -132,7 +136,7 @@ public class PlayListDAO {
         preparedStatement.setInt(1, playListID);
         preparedStatement.setInt(2, songID);
         int row = preparedStatement.executeUpdate();
-        if(row != 0){
+        if (row != 0) {
             System.out.println(" Song Added to the playlist ");
         }
         System.out.println("1 Do you Want To Add Some more songs");
@@ -160,7 +164,7 @@ public class PlayListDAO {
                         case (1):
                             audioPlayer.PlaySong(playList);
                             break;
-                        case(2):
+                        case (2):
                             System.out.println("PLEASE ENTER THE SONG_ID");
                             int songId = scanner.nextInt();
                             audioPlayer.PlaySong(songsDAO.getPathOfTheSong(songId));
@@ -192,15 +196,16 @@ public class PlayListDAO {
         Scanner scanner = new Scanner(System.in);
         List<Songs> playListSongs = new ArrayList<>();
         ResultSet resultSet = statement.executeQuery("SELECT playListID,playListName from playlistdetails;");
-        System.out.format("%-10s %-20s","PlayListID","PlayListName");
+        System.out.format("%-10s %-20s", "PlayListID", "PlayListName");
+        System.out.println();
         while (resultSet.next()) {
-            System.out.format("%-10s %-20s",resultSet.getInt(1),resultSet.getString(2));
-                System.out.println("playListID = " + resultSet.getInt(1));
+            System.out.format("%-10s %-20s", resultSet.getInt(1), resultSet.getString(2));
+            System.out.println();
+            /*System.out.println("playListID = " + resultSet.getInt(1));
             System.out.println("playListID = " + resultSet.getInt(1));
-            System.out.println("playListName = " + resultSet.getString(2));
+            System.out.println("playListName = " + resultSet.getString(2));*/
         }
         System.out.println(" Please enter the playListID you want to open");
-        System.out.println(" process=================");
         int playListID = scanner.nextInt();
         String sql = "Select songId from playlist where playListID = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
