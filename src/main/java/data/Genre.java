@@ -1,3 +1,4 @@
+/*
 package data;
 
 public class Genre {
@@ -19,3 +20,4 @@ public class Genre {
         this.genreType = genreType;
     }
 }
+*/

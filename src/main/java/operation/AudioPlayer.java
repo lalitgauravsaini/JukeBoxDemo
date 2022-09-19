@@ -15,16 +15,16 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class AudioPlayer {
-    List<Songs> songslist;
+    List<Songs> songsList;
     int songIndex;
 
-    public void PlaySong(List<Songs> songslist) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+    public void PlaySong(List<Songs> songsList) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 
         Scanner scanner = new Scanner(System.in);
-        this.songslist = songslist;
-        for (int i = 0; i < songslist.size(); i++) {
+        this.songsList = songsList;
+        for (int i = 0; i < songsList.size(); i++) {
             songIndex = i;
-            PlaySong(songslist.get(i).getSongPath());
+            PlaySong(songsList.get(i).getSongPath());
         }
 
     }
@@ -34,8 +34,7 @@ public class AudioPlayer {
 
         Scanner scanner = new Scanner(System.in);
         try {
-            String path = songPath;
-            File file = new File(path);
+            File file = new File(songPath);
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
             Clip clip = AudioSystem.getClip();
             clip.open(audioStream);
@@ -79,16 +78,19 @@ public class AudioPlayer {
                     case ("N"):
                         songIndex += 1;
                         clip.close();
-                        PlaySong(songslist.get(songIndex).getSongPath());
+                        PlaySong(songsList.get(songIndex).getSongPath());
                         break;
                     case ("O"):
                         songIndex -= 1;
                         clip.close();
-                        PlaySong(songslist.get(songIndex).getSongPath());
+                        PlaySong(songsList.get(songIndex).getSongPath());
                         break;
                     case("M"):
                         String[] arg = new String[0];
                         Implementation.main(arg);
+                        break;
+                    case("E"):
+                        System.exit(0);
                         break;
 
                     default:

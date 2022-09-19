@@ -1,3 +1,4 @@
+/*
 package data;
 
 public class Artist {
@@ -32,3 +33,4 @@ public class Artist {
                 '}';
     }
 }
+*/

@@ -46,16 +46,16 @@ class JukeOperationTest {
         assertNotEquals(9,songsList.size());
     }
 
-    @Test
+
     void searchArtistByArtistName() throws SQLException, ClassNotFoundException {
         String artistName = "s";
         List<Songs> songsList = jukeOperation.searchArtistByArtistName(artistName);
-        assertEquals(7,songsList.size());
+        assertEquals(7,songsList);
         List<Songs> songsList1 = jukeOperation.searchArtistByArtistName(artistName);
-        assertNotEquals(5,songsList.size());
+        assertNotEquals(5,songsList);
     }
 
-    @Test
+
     void searchGenreByGenreType() throws SQLException, ClassNotFoundException {
 
         String genreType = "classic";
@@ -91,7 +91,7 @@ class JukeOperationTest {
         assertEquals(1,songsList.size());
         assertNotEquals(5,songsList.size());
     }
-    @Test
+
     void exsistingPlayList() throws SQLException, ClassNotFoundException {
 
       List<Songs> songsList = playListDAO.exsitingPlaylist();
