@@ -22,14 +22,15 @@ public class Implementation {
         SongsDAO songsDAO = new SongsDAO();
 
         int optionOfMainMenu = 0;
-        while (optionOfMainMenu != 4) {
+        while (optionOfMainMenu != 5) {
             System.out.println("============================================================================");
             System.out.println("\t\tWELCOME TO YOUR  MUSIC SYSTEM");
             System.out.println("\t\tPLEASE SELECT THE OPTION FROM THE MENU");
             System.out.println("\t\t1 : Search A Song");
             System.out.println("\t\t2 : Creating A New PlayList");
             System.out.println("\t\t3 : Go To Existing PlayList");
-            System.out.println("\t\t4 : Exit");
+            System.out.println("\t\t4 : Add Songs To The Existing playList ");
+            System.out.println("\t\t5 : Exit");
             System.out.println("============================================================================");
             optionOfMainMenu = scanner.nextInt();
             try {
@@ -169,7 +170,7 @@ public class Implementation {
                         break;
 
                     case (3):
-                       List<Songs> playListEx = playListDAO.exsitingPlaylist();
+                        List<Songs> playListEx = playListDAO.exsitingPlaylist();
                         System.out.format("%-10s %-30s %-30s %-30s %-30s \n", "SongID", "SongName", "Duration", "GenreType", "Artist");
                         System.out.println("-----------------------------------------------------------------------------------------");
                         for (Songs songs : playListEx) {
@@ -192,9 +193,13 @@ public class Implementation {
                                 }
                                 System.out.println("PLEASE ENTER THE SONGID YOU WANT TO PLAY");
                                 int song_id = scanner.nextInt();
-                                audioPlayer.PlaySong(songsDAO.getPathOfTheSong(song_id));}
+                                audioPlayer.PlaySong(songsDAO.getPathOfTheSong(song_id));
+                        }
                         break;
-
+                    case (4):
+                        playListDAO.addingSongsToPlayList();
+                    case (5):
+                        System.exit(0);
                 }
             } catch (UnsupportedAudioFileException e) {
                 System.out.println("e = " + e);

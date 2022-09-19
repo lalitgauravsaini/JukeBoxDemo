@@ -93,8 +93,7 @@ public class AudioPlayer {
 
                     default:
                         System.err.println("PLEASE SELECT THE CORRECT OPTION");
-                        response = scanner.next();
-                        response = response.toUpperCase();
+
                 }
             }
         } catch (Exception e) {
