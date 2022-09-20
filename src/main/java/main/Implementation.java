@@ -15,7 +15,6 @@ import java.util.Scanner;
 
 @SuppressWarnings("ALL")
 public class Implementation {
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         PlayListDAO playListDAO = new PlayListDAO();
@@ -108,7 +107,6 @@ public class Implementation {
                                                     default:
                                                         System.err.println("PLEASE SELECT THE CORRECT OPTION");
                                                 }
-
                                         }
                                         break;
                                     case (3):
@@ -117,13 +115,10 @@ public class Implementation {
                                         break;
                                     default:
                                         System.err.println("PLEASE SELECT THE RIGHT OPTION");
-
-
                                 }
                                 break;
-
                             case (2):
-                                System.out.println("PLEASE ENTER THE artistName YOU WANT TO SEARCH");
+                                System.out.println("PLEASE ENTER THE ArtistName YOU WANT TO SEARCH");
                                 scanner.nextLine();
                                 String artistName = scanner.nextLine();
                                 List<Songs> songsListOfArtist = jukeOperation.searchArtistByArtistName(artistName);
@@ -155,7 +150,7 @@ public class Implementation {
                                 String songName = scanner.nextLine();
                                 List<Songs> songsListBasedOnName = jukeOperation.searchSongBySongName(songName);
                                 System.out.println("==================================================================================================");
-                                System.out.format("%-10s %-30s %-30s %-30s %-30s \n", "SongID", "SongName", "SongDuration", "GenreType", "Artist");
+                                System.out.format("%-10s %-30s %-30s %-30s %-30s \n", "SongID", "SongName","SongDuration", "GenreType", "Artist");
                                 System.out.println("==================================================================================================");
                                 for (Songs songs : songsListBasedOnName) {
                                     System.out.format("%-10s %-30s %-30s %-30s %-30s \n", songs.getSongID(), songs.getSongName(), songs.getSongDuration(), songs.getGenreType(), songs.getArtistName());
@@ -166,12 +161,9 @@ public class Implementation {
                                 String[] arg = new String[0];
                                 Implementation.main(arg);
                                 break;
-
                             default:
                                 System.err.println("PLEASE SELECT THE RIGHT OPTION");
                         }
-
-
                         break;
                     case (2):
                         playListDAO.creatingAPlaylist();
@@ -187,7 +179,8 @@ public class Implementation {
                         }
                         System.out.println("==================================================================================================");
                         System.out.println("\t\t1: DO YOU WANT TO PLAY THE ENTIRE PLAYLIST");
-                        System.out.println("\t\t2: DO YOU WANT TO PLAY A SONG FROM PLAYLIST");
+
+                    System.out.println("\t\t2: DO YOU WANT TO PLAY A SONG FROM PLAYLIST");
                         System.out.println("\t\t3: GO BACK TO MAIN MENU");
                         int select = scanner.nextInt();
                         switch (select) {
