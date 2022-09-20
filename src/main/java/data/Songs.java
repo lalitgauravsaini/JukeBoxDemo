@@ -5,16 +5,15 @@ public class Songs {
     private String songName;
     private int songID;
     private double songDuration;
-    private  String songPath;
+    private String songPath;
     private String artistName;
     private String genreType;
-
 
 
     public Songs() {
     }
 
-    public Songs(int songID,String songName,  double songDuration, String songPath,  String genreType,String artistName) {
+    public Songs(int songID, String songName, double songDuration, String songPath, String genreType, String artistName) {
 
         this.songID = songID;
         this.songName = songName;
@@ -47,7 +46,6 @@ public class Songs {
     public void setSongPath(String songPath) {
         this.songPath = songPath;
     }
-
 
 
     public int getSongID() {

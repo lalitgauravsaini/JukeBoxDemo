@@ -1,6 +1,6 @@
-/*
 package data;
 
+@SuppressWarnings("ALL")
 public class Artist {
 
     private String artistName;
@@ -23,9 +23,6 @@ public class Artist {
     }
 
 
-
-
-
     @Override
     public String toString() {
         return "Artist{" +
@@ -33,4 +30,4 @@ public class Artist {
                 '}';
     }
 }
-*/
+

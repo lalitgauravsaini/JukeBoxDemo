@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
+@SuppressWarnings("ALL")
 public class Implementation {
 
     public static void main(String[] args) {
@@ -59,14 +60,13 @@ public class Implementation {
                                 for (Songs songs : allSongs) {
                                     System.out.format("%-10s %-30s %-30s %-30s %-30s \n", songs.getSongID(), songs.getSongName(), songs.getDuration(), songs.getGenreType(), songs.getArtistName());
                                 }
-                                System.out.println("PLEASE SELECT THE OPTION \n1: PLAY A SONG \n2: GO TO PLAYLIST\n3: GO BACK TO MAIN MENU");
+                                System.out.println("PLEASE SELECT THE OPTION \n1: PLAY A SONG \n2: GO TO PLAYLIST");
                                 int choice = scanner.nextInt();
-
                                 switch (choice) {
                                     case (1):
-                                        System.out.println("PLEASE ENTER THE SONG ID YOU WANT TO PLAY");
+                                        System.out.println("PLEASE ENTER THE Song ID YOU WANT TO PLAY");
                                         int songID = scanner.nextInt();
-                                        audioPlayer.PlaySong(songsDAO.getPathOfTheSong(songID));
+                                        songsDAO.getPathOfTheSong(songID);
                                         break;
                                     case (2):
                                         System.out.println("1 FOR CREATING A NEW PLAYLIST\n2 FOR EXISTING PLAYLIST");
@@ -77,10 +77,10 @@ public class Implementation {
                                             case (2):
                                                 List<Songs> playList = playListDAO.exsitingPlaylist();
                                                 System.out.println("==================================================================================================");
-                                                System.out.format("%-10s %-30s %-30s %-30s %-30s \n", "SongID", "SongName", "Duration", "GenreType", "Artist");
+                                                System.out.format("%-10s %-30s %-30s %-30s %-30s \n", "SongID","SongName", "SongDuration", "GenreType", "Artist");
                                                 System.out.println("==================================================================================================");
                                                 for (Songs songs : playList) {
-                                                    System.out.format("%-10s %-30s %-30s %-30s %-30s \n", songs.getSongID(), songs.getSongName(), songs.getDuration(), songs.getGenreType(), songs.getArtistName());
+                                                    System.out.format("%-10s %-30s %-30s %-30s %-30s \n", songs.getSongID(), songs.getSongName(), songs.getSongDuration(), songs.getGenreType(), songs.getArtistName());
                                                 }
                                                 System.out.println("==================================================================================================");
                                                 System.out.println("\t\t1: DO YOU WANT TO PLAY THE ENTIRE PLAYLIST");
@@ -97,9 +97,9 @@ public class Implementation {
                                                         for (Songs songs : playList) {
                                                             System.out.format("%-10s %-30s %-30s %-30s %-30s \n", songs.getSongID(), songs.getSongName(), songs.getDuration(), songs.getGenreType(), songs.getArtistName());
                                                         }
-                                                        System.out.println("PLEASE ENTER THE SONGID YOU WANT TO PLAY");
+                                                        System.out.println("PLEASE ENTER THE songID YOU WANT TO PLAY");
                                                         int song_id = scanner.nextInt();
-                                                        audioPlayer.PlaySong(songsDAO.getPathOfTheSong(song_id));
+                                                        songsDAO.getPathOfTheSong(song_id);
 
                                                     case (3):
                                                         String[] arg = new String[0];
@@ -123,12 +123,12 @@ public class Implementation {
                                 break;
 
                             case (2):
-                                System.out.println("PLEASE ENTER THE ARTIST NAME YOU WANT TO SEARCH");
+                                System.out.println("PLEASE ENTER THE artistName YOU WANT TO SEARCH");
                                 scanner.nextLine();
                                 String artistName = scanner.nextLine();
                                 List<Songs> songsListOfArtist = jukeOperation.searchArtistByArtistName(artistName);
                                 System.out.println("==================================================================================================");
-                                System.out.format("%-10s %-30s %-30s %-30s %-30s \n", "SongID", "SongName", "Duration", "GenreType", "Artist");
+                                System.out.format("%-10s %-30s %-30s %-30s %-30s \n", "SongID", "SongName", "SongDuration", "GenreType", "Artist");
                                 System.out.println("==================================================================================================");
                                 for (Songs songs : songsListOfArtist) {
                                     System.out.format("%-10s %-30s %-30s %-30s %-30s \n", songs.getSongID(), songs.getSongName(), songs.getDuration(), songs.getGenreType(), songs.getArtistName());
@@ -136,7 +136,7 @@ public class Implementation {
                                 jukeOperation.playSongs();
                                 break;
                             case (3):
-                                System.out.println("PLEASE ENTER THE GENRE TYPE YOU WANT TO SEARCH");
+                                System.out.println("PLEASE ENTER THE GenreType YOU WANT TO SEARCH");
                                 scanner.nextLine();
                                 String genreType = scanner.nextLine();
                                 List<Songs> songsList = jukeOperation.searchGenreByGenreType(genreType);
@@ -145,6 +145,7 @@ public class Implementation {
                                 System.out.println("==================================================================================================");
                                 for (Songs songs : songsList) {
                                     System.out.format("%-10s %-30s %-30s %-30s %-30s \n", songs.getSongID(), songs.getSongName(), songs.getDuration(), songs.getGenreType(), songs.getArtistName());
+
                                 }
                                 jukeOperation.playSongs();
                                 break;
@@ -154,10 +155,10 @@ public class Implementation {
                                 String songName = scanner.nextLine();
                                 List<Songs> songsListBasedOnName = jukeOperation.searchSongBySongName(songName);
                                 System.out.println("==================================================================================================");
-                                System.out.format("%-10s %-30s %-30s %-30s %-30s \n", "SongID", "SongName", "Duration", "GenreType", "Artist");
+                                System.out.format("%-10s %-30s %-30s %-30s %-30s \n", "SongID", "SongName", "SongDuration", "GenreType", "Artist");
                                 System.out.println("==================================================================================================");
                                 for (Songs songs : songsListBasedOnName) {
-                                    System.out.format("%-10s %-30s %-30s %-30s %-30s \n", songs.getSongID(), songs.getSongName(), songs.getDuration(), songs.getGenreType(), songs.getArtistName());
+                                    System.out.format("%-10s %-30s %-30s %-30s %-30s \n", songs.getSongID(), songs.getSongName(), songs.getSongDuration(), songs.getGenreType(), songs.getArtistName());
                                 }
                                 jukeOperation.playSongs();
                                 break;
@@ -179,7 +180,7 @@ public class Implementation {
                     case (3):
                         List<Songs> playListEx = playListDAO.exsitingPlaylist();
                         System.out.println("==================================================================================================");
-                        System.out.format("%-10s %-30s %-30s %-30s %-30s \n", "SongID", "SongName", "Duration", "GenreType", "Artist");
+                        System.out.format("%-10s %-30s %-30s %-30s %-30s \n", "SongID", "SongName", "SongsDuration", "GenreType", "Artist");
                         System.out.println("==================================================================================================");
                         for (Songs songs : playListEx) {
                             System.out.format("%-10s %-30s %-30s %-30s %-30s \n", songs.getSongID(), songs.getSongName(), songs.getDuration(), songs.getGenreType(), songs.getArtistName());
@@ -202,7 +203,7 @@ public class Implementation {
                                 }
                                 System.out.println("PLEASE ENTER THE SONGID YOU WANT TO PLAY");
                                 int song_id = scanner.nextInt();
-                                audioPlayer.PlaySong(songsDAO.getPathOfTheSong(song_id));
+                                songsDAO.getPathOfTheSong(song_id);
                         }
                         break;
                     case (4):

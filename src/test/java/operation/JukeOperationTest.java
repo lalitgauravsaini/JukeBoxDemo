@@ -12,16 +12,18 @@ import org.junit.jupiter.api.Test;
 import java.sql.SQLException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class JukeOperationTest {
 
 
-    JukeOperation jukeOperation ;
+    JukeOperation jukeOperation;
     ArtistDAO artistDAO;
     GenreDAO genreDAO;
     PlayListDAO playListDAO;
     SongsDAO songsDAO;
+
     @BeforeEach
     void setUp() {
         jukeOperation = new JukeOperation();
@@ -40,19 +42,19 @@ class JukeOperationTest {
 
     @Test
     void displayAllSongs() throws SQLException, ClassNotFoundException {
-       List<Songs> songsList = jukeOperation.displayAllSongs();
-       assertEquals(5,songsList.size());
+        List<Songs> songsList = jukeOperation.displayAllSongs();
+        assertEquals(5, songsList.size());
         List<Songs> songsList1 = jukeOperation.displayAllSongs();
-        assertNotEquals(9,songsList.size());
+        assertNotEquals(9, songsList.size());
     }
 
 
     void searchArtistByArtistName() throws SQLException, ClassNotFoundException {
         String artistName = "s";
         List<Songs> songsList = jukeOperation.searchArtistByArtistName(artistName);
-        assertEquals(7,songsList);
+        assertEquals(7, songsList);
         List<Songs> songsList1 = jukeOperation.searchArtistByArtistName(artistName);
-        assertNotEquals(5,songsList);
+        assertNotEquals(5, songsList);
     }
 
 
@@ -60,53 +62,56 @@ class JukeOperationTest {
 
         String genreType = "classic";
         List<Songs> songsList = jukeOperation.searchGenreByGenreType(genreType);
-        assertEquals(7,songsList.size());
+        assertEquals(7, songsList.size());
         List<Songs> songsList1 = jukeOperation.searchGenreByGenreType(genreType);
-        assertNotEquals(5,songsList.size());
+        assertNotEquals(5, songsList.size());
     }
 
     @Test
     void searchSongBySongName() throws SQLException, ClassNotFoundException {
         String songName = "s";
         List<Songs> songsList = jukeOperation.searchSongBySongName(songName);
-        assertEquals(1,songsList.size());
+        assertEquals(1, songsList.size());
         List<Songs> songsList1 = jukeOperation.searchSongBySongName(songName);
-        assertNotEquals(5,songsList.size());
+        assertNotEquals(5, songsList.size());
 
     }
+
     @Test
     void songsOfGenre() throws SQLException, ClassNotFoundException {
 
         String genreType = "classic";
         List<Songs> songsList = genreDAO.songsOfGenre(genreType);
-        assertEquals(1,songsList.size());
+        assertEquals(1, songsList.size());
         List<Songs> songsList1 = genreDAO.songsOfGenre(genreType);
-        assertNotEquals(4,songsList.size());
+        assertNotEquals(4, songsList.size());
     }
+
     @Test
     void songsOfArtist() throws SQLException, ClassNotFoundException {
 
         String artistName = "sidSriRam";
         List<Songs> songsList = artistDAO.songsOfArtist(artistName);
-        assertEquals(1,songsList.size());
-        assertNotEquals(5,songsList.size());
+        assertEquals(1, songsList.size());
+        assertNotEquals(5, songsList.size());
     }
 
     void exsistingPlayList() throws SQLException, ClassNotFoundException {
 
-      List<Songs> songsList = playListDAO.exsitingPlaylist();
-      assertEquals(1,songsList.size());
+        List<Songs> songsList = playListDAO.exsitingPlaylist();
+        assertEquals(1, songsList.size());
 
     }
+
     @Test
     void getPathOfSong() throws SQLException, ClassNotFoundException {
 
         int songID = 4;
         String pathOfTheSong = songsDAO.getPathOfTheSong(songID);
-        assertEquals("src/main/resources/wav_21mb.wav",pathOfTheSong);
+        assertEquals("src/main/resources/wav_21mb.wav", pathOfTheSong);
         int songId = 5;
         String pathOfTheSong1 = songsDAO.getPathOfTheSong(songId);
-        assertNotEquals("src/main/resources/wav_21mb.wav",1);
+        assertNotEquals("src/main/resources/wav_21mb.wav", 1);
     }
 
 }

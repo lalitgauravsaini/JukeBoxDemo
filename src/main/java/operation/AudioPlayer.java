@@ -3,17 +3,13 @@ package operation;
 import data.Songs;
 import main.Implementation;
 
+import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
+@SuppressWarnings("ALL")
 public class AudioPlayer {
     List<Songs> songsList;
     int songIndex;
@@ -26,7 +22,6 @@ public class AudioPlayer {
             songIndex = i;
             PlaySong(songsList.get(i).getSongPath());
         }
-
     }
 
     public void PlaySong(String songPath) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
@@ -41,8 +36,16 @@ public class AudioPlayer {
 
             String response = "";
 
-            while (!response.equals("Q")) {
-                System.out.println("P = play, T= Pause, S=Stop, L=Loop, R = Reset, Q = Quit,N = NextSong,O = previousSong,M = MAIN MENU");
+            while (!response.equals("Press for Q")) {
+                System.out.println("Press for P = play," +
+                        " Press for T= Pause," +
+                        " Press for S=Stop," +
+                        " Press for L=Loop," +
+                        "Press for  R = Reset," +
+                        " Press for Q = Quit," +
+                        "Press for N = NextSong," +
+                        "Press for O = previousSong," +
+                        "Press for M = MAIN MENU");
                 System.out.print("Enter your choice: ");
 
                 response = scanner.next();
@@ -50,46 +53,46 @@ public class AudioPlayer {
 
 
                 switch (response) {
-                    case ("P"): {
+                    case ("Press for P"): {
                         clip.start();
                         break;
                     }
-                    case ("T"): {
+                    case ("Press for T"): {
                         clip.stop();
                         break;
                     }
-                    case ("S"): {
+                    case ("Press for S"): {
                         clip.setMicrosecondPosition(0);
                         clip.stop();
                         break;
                     }
-                    case ("L"): {
+                    case ("Press for L"): {
                         clip.start();
                         clip.loop(Clip.LOOP_CONTINUOUSLY);
                     }
 
-                    case ("R"):
+                    case ("Press for R"):
                         clip.setMicrosecondPosition(0);
                         break;
 
-                    case ("Q"):
+                    case ("Press for Q"):
                         clip.close();
                         break;
-                    case ("N"):
+                    case ("Press for N"):
+                        clip.close();
                         songIndex += 1;
-                        clip.close();
                         PlaySong(songsList.get(songIndex).getSongPath());
                         break;
-                    case ("O"):
+                    case ("Press for O"):
+                        clip.close();
                         songIndex -= 1;
-                        clip.close();
                         PlaySong(songsList.get(songIndex).getSongPath());
                         break;
-                    case("M"):
+                    case ("Press for M"):
                         String[] arg = new String[0];
                         Implementation.main(arg);
                         break;
-                    case("E"):
+                    case ("Press for E"):
                         System.exit(0);
                         break;
 

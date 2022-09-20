@@ -1,17 +1,20 @@
 package operation;
 
+import Connection.DB_connection;
 import data.Songs;
 import data_accessing_object.ArtistDAO;
 import data_accessing_object.GenreDAO;
 import data_accessing_object.PlayListDAO;
 import data_accessing_object.SongsDAO;
 import main.Implementation;
-import utility.DB_connection;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -22,7 +25,7 @@ public class JukeOperation {
 
         List<Songs> allSongsList = new ArrayList<>();
         Connection connection = DB_connection.getConnection();
-        String sql = "Select * from songs; ";
+        String sql = "Select * from Songs_tbl; ";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -62,7 +65,7 @@ public class JukeOperation {
         preparedStatement.setString(1, searchAlphabet + "%");
         ResultSet resultSet = preparedStatement.executeQuery();
         System.out.println("Please Select the Genre");
-        while(resultSet.next()) {
+        while (resultSet.next()) {
             System.out.println(resultSet.getString(1));
         }
         String genreType = scanner.nextLine();
@@ -101,7 +104,7 @@ public class JukeOperation {
             case (1):
                 System.out.println("PLEASE ENTER THE SONG ID YOU WANT TO PLAY");
                 int songID = scanner.nextInt();
-                audioPlayer.PlaySong(songsDAO.getPathOfTheSong(songID));
+                songsDAO.getPathOfTheSong(songID);
                 break;
             case (2):
                 System.out.println("1 FOR CREATING A NEW PLAYLIST\n2 FOR EXISTING PLAYLIST");
@@ -133,7 +136,7 @@ public class JukeOperation {
                                 }
                                 System.out.println("PLEASE ENTER THE SONGID YOU WANT TO PLAY");
                                 int song_id = scanner.nextInt();
-                                audioPlayer.PlaySong(songsDAO.getPathOfTheSong(song_id));
+                                songsDAO.getPathOfTheSong(song_id);
 
                             case (3):
                                 String[] arg = new String[0];
@@ -142,17 +145,12 @@ public class JukeOperation {
                             default:
                                 System.err.println("PLEASE SELECT THE CORRECT OPTION");
                         }
-
                 }
                 break;
             case (3):
                 break;
             default:
                 System.err.println("PLEASE SELECT THE RIGHT OPTION");
-
-
         }
     }
-
-
 }

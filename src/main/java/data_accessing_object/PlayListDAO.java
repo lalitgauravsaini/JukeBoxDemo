@@ -1,10 +1,10 @@
 package data_accessing_object;
 
+import Connection.DB_connection;
 import data.Songs;
 import main.Implementation;
 import operation.AudioPlayer;
 import operation.JukeOperation;
-import utility.DB_connection;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+@SuppressWarnings("ALL")
 public class PlayListDAO {
 
 
@@ -167,7 +168,7 @@ public class PlayListDAO {
                         case (2):
                             System.out.println("PLEASE ENTER THE SONG_ID");
                             int songId = scanner.nextInt();
-                            audioPlayer.PlaySong(songsDAO.getPathOfTheSong(songId));
+                            songsDAO.getPathOfTheSong(songId);
                         case (3):
                             String[] arg = new String[0];
                             Implementation.main(arg);
@@ -195,7 +196,7 @@ public class PlayListDAO {
         Statement statement = connection.createStatement();
         Scanner scanner = new Scanner(System.in);
         List<Songs> playListSongs = new ArrayList<>();
-        ResultSet resultSet = statement.executeQuery("SELECT playListID,playListName from playlistdetails;");
+        ResultSet resultSet = statement.executeQuery("SELECT playListID,playListName from playlistdetails");
         System.out.format("%-10s %-20s", "PlayListID", "PlayListName");
         System.out.println();
         while (resultSet.next()) {

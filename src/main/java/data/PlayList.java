@@ -1,6 +1,6 @@
-/*
 package data;
 
+@SuppressWarnings("ALL")
 public class PlayList {
 
     private String playlistName;
@@ -40,4 +40,4 @@ public class PlayList {
                 '}';
     }
 }
-*/
+

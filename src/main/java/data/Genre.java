@@ -1,6 +1,6 @@
-/*
 package data;
 
+@SuppressWarnings("ALL")
 public class Genre {
 
     private String genreType;
@@ -20,4 +20,4 @@ public class Genre {
         this.genreType = genreType;
     }
 }
-*/
+
